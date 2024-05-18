@@ -2,10 +2,18 @@ package sprinbootlearn.springboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 @Service
+// @PropertySource("classpath:custom.properties")
+@PropertySources({
+        @PropertySource("classpath:custom.properties"),
+        @PropertySource("classpath:custom-2.properties")
+})
 public class MyFIrstService {
 
     // @Autowired
@@ -13,6 +21,15 @@ public class MyFIrstService {
     private MyFirstClass myFirstClass;
 
     private Environment environment;
+
+    @Value("Hello Ab")
+    private String custonProperty;
+
+    @Value("${mypro.pro}")
+    private String cutomPropertyFromAnotherFile;
+
+    @Value("123")
+    private Integer customPropertyNumber;
 
     // public MyFIrstService(MyFirstClass myFirstClass) {
     // this.myFirstClass = myFirstClass;
@@ -24,8 +41,8 @@ public class MyFIrstService {
     }
 
     @Autowired
-    public void injectDependencies(@Qualifier("bean1") MyFirstClass myFirstClass) {
-        this.myFirstClass = myFirstClass;
+    public void injectDependencies(@Qualifier("bean1") MyFirstClass myFirstCls) {
+        this.myFirstClass = myFirstCls;
 
     }
 
